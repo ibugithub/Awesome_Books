@@ -31,8 +31,8 @@
 - [📝 License](#license)
 
 
-# 📖Portfolio: setup and mobile first  <a name="about-project"></a>
-**Portfolio: setup and mobile first** is a Project in the first week of the program.
+# 📖Awesome Books  <a name="about-project"></a>
+**Awesome Books** is a Project in the first week of second module of the program.
 
 ## 🛠 Built With <a name="built-with"></a>
 ### Tech Stack <a name="tech-stack"></a>
@@ -53,7 +53,7 @@
 ## 🚀 Live Demo <a name="live-demo"></a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-- [Live Demo Link](https://ibugithub.github.io/Portfolio/)
+- [Live Demo Link](https://ibugithub.github.io/Awesome_Books/)
 
 
 ## 💻 Getting Started <a name="getting-started"></a>
