@@ -1,38 +1,20 @@
-// This function will remove the book from the localstorage
-const removeBookFromLocalStorage = (bookId) => {
-  let bookListObj = JSON.parse(localStorage.getItem('bookList'));
-  bookListObj = bookListObj.filter((obj) => obj.id !== parseInt(bookId, 10));
-  localStorage.setItem('bookList', JSON.stringify(bookListObj));
-};
+class BookList {
+  constructor() {
+    const bookListObj = JSON.parse(localStorage.getItem('bookList')) || [];
+  }
 
-// This function will remove the book when remove will be clicked
-const removeBook = (event) => {
-  const bookNode = event.target.parentNode.parentNode;
-  const bookListNode = bookNode.parentNode;
-  bookListNode.removeChild(bookNode);
-  const bookId = bookNode.id;
-  removeBookFromLocalStorage(bookId);
-};
-
-// handling remove button click
-const removeButtonEvent = () => {
-  document.querySelectorAll('.rButton').forEach((element) => {
-    element.addEventListener('click', removeBook);
-  });
-};
-
-// This function is for rendering the book list for the first time
-const renderingBookList = () => {
-  const bookListObj = JSON.parse(localStorage.getItem('bookList')) || [];
-  let count = 0;
-  const bookListContainer = document.querySelector('.bookList_container');
-  const bookList = document.createElement('div');
-  bookList.classList.add('book_list');
-  bookListObj.forEach(() => {
-    const book = document.createElement('div');
-    book.classList.add('book');
-    book.id = bookListObj[count].id;
-    book.innerHTML = `
+  // This function is for rendering the book list for the first time
+  renderingBookList = () => {
+    const bookListObj = JSON.parse(localStorage.getItem('bookList')) || [];
+    let count = 0;
+    const bookListContainer = document.querySelector('.bookList_container');
+    const bookList = document.createElement('div');
+    bookList.classList.add('book_list');
+    bookListObj.forEach(() => {
+      const book = document.createElement('div');
+      book.classList.add('book');
+      book.id = bookListObj[count].id;
+      book.innerHTML = `
       <div class="book_name">
       <h4 class="margin_bottom5">${bookListObj[count].name}</h4>
       </div>
@@ -44,58 +26,84 @@ const renderingBookList = () => {
       </div>
       <hr>
       `;
-    bookList.appendChild(book);
-    count += 1;
-  });
-  bookListContainer.appendChild(bookList);
-  removeButtonEvent();
-};
+      bookList.appendChild(book);
+      count += 1;
+    });
+    bookListContainer.appendChild(bookList);
+    this.removeButtonEvent();
+  };
 
-// Showing empty input warning
-const emptyInputChecker = () => {
-  const title = document.querySelector('.bookTitle');
-  const author = document.querySelector('.bookAuthor');
-  let value = true;
-  if (title.value === '') {
-    document.querySelector('.titleWarning').textContent = 'you must have a book name';
-    value = false;
-  } else {
-    document.querySelector('.titleWarning').textContent = '';
-  }
-  if (author.value === '') {
-    document.querySelector('.authorWarning').textContent = 'book must have a author name';
-    value = false;
-  } else {
-    document.querySelector('.authorWarning').textContent = '';
-  }
-  return value;
-};
+  // Managing book when new book added or add button click
+  manageBook = () => {
+    if (this.emptyInputChecker()) {
+      this.removeOldBookList();
+      this.addBook();
+      this.renderingBookList();
+    }
+  };
 
-// Removing the old book list
-const removeOldBookList = () => {
-  const bookListContainer = document.querySelector('.bookList_container');
-  const oldBookList = document.querySelector('.book_list');
-  bookListContainer.removeChild(oldBookList);
-};
+  // Showing empty input warning
+  emptyInputChecker = () => {
+    const title = document.querySelector('.bookTitle');
+    const author = document.querySelector('.bookAuthor');
+    let value = true;
+    if (title.value === '') {
+      document.querySelector('.titleWarning').textContent = 'you must have a book name';
+      value = false;
+    } else {
+      document.querySelector('.titleWarning').textContent = '';
+    }
+    if (author.value === '') {
+      document.querySelector('.authorWarning').textContent = 'book must have a author name';
+      value = false;
+    } else {
+      document.querySelector('.authorWarning').textContent = '';
+    }
+    return value;
+  };
 
-// Add books to the localStorage
-const addBook = () => {
-  const title = document.querySelector('.bookTitle');
-  const author = document.querySelector('.bookAuthor');
-  const bookList = JSON.parse(localStorage.getItem('bookList')) || [];
-  const newBook = { id: bookList.length, name: title.value, author: author.value };
-  bookList.push(newBook);
-  localStorage.setItem('bookList', JSON.stringify(bookList));
-};
+  // Removing the old book list
+  removeOldBookList = () => {
+    const bookListContainer = document.querySelector('.bookList_container');
+    const oldBookList = document.querySelector('.book_list');
+    bookListContainer.removeChild(oldBookList);
+  };
 
-// Managing book when new book added or add button click
-const manageBook = () => {
-  if (emptyInputChecker()) {
-    removeOldBookList();
-    addBook();
-    renderingBookList();
-  }
-};
+  // Add books to the localStorage
+  addBook = () => {
+    const title = document.querySelector('.bookTitle');
+    const author = document.querySelector('.bookAuthor');
+    const bookList = JSON.parse(localStorage.getItem('bookList')) || [];
+    const newBook = { id: bookList.length, name: title.value, author: author.value };
+    bookList.push(newBook);
+    localStorage.setItem('bookList', JSON.stringify(bookList));
+  };
 
-document.querySelector('.addButton').addEventListener('click', manageBook);
-window.addEventListener('load', renderingBookList);
+  // handling remove button click
+  removeButtonEvent = () => {
+    document.querySelectorAll('.rButton').forEach((element) => {
+      element.addEventListener('click', this.removeBook);
+    });
+  };
+
+  // This function will remove the book when remove will be clicked
+  removeBook = (event) => {
+    const bookNode = event.target.parentNode.parentNode;
+    const bookListNode = bookNode.parentNode;
+    bookListNode.removeChild(bookNode);
+    const bookId = bookNode.id;
+    this.removeBookFromLocalStorage(bookId);
+  };
+
+  // This function will remove the book from the localstorage
+  removeBookFromLocalStorage = (bookId) => {
+    let bookListObj = JSON.parse(localStorage.getItem('bookList'));
+    bookListObj = bookListObj.filter((obj) => obj.id !== parseInt(bookId, 10));
+    localStorage.setItem('bookList', JSON.stringify(bookListObj));
+  };
+}
+
+const bookList = new BookList();
+
+document.querySelector('.addButton').addEventListener('click', bookList.manageBook);
+window.addEventListener('load', bookList.renderingBookList);
