@@ -1,24 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Awesome books</title>
-  </head>
-  <body>
-    <h1>Awesome books</h1>
-    <div id="book-list"></div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Awesome books</title>
+</head>
+
+<body>
+  <div class="container">
+    <nav>
+      <div class="left">
+        Awesome Books
+      </div>
+      <ul class="right">
+        <li id="list">List</li>
+        <li id="add_new">Add new</li>
+        <li id="contact">Contact</li>
+      </ul>
+    </nav>
+
+    <section class="Title">
+      <h1>Awesome books</h1>
+    </section>
+
+    <section class="main_section">
+      <div id="book-list"></div>
+    </section>
+
     <div class="underlined"></div>
-    <form id="add-book-form">
-      <h2>Add a New Book</h2>
-      <input type="text" id="title" name="title" placeholder="title" required>
-      <br>
-      <input type="text" id="author" name="author" placeholder="author" required>
-      <br>
-      <button class="button-add" type="submit">Add</button>
-    </form>
-    <script src="book.js"></script>
-  </body>
+
+    <div id="add_book_section">
+
+      <div class="addBS_title">
+        <h2>Add a New Book</h2>
+      </div>
+
+      <form id="add-book-form">
+        <input type="text" id="title" name="title" placeholder="title" required>
+        <br>
+        <input type="text" id="author" name="author" placeholder="author" required>
+        <br>
+        <div class="button_container">
+          <button class="button-add margin-right0" type="submit">Add</button>
+        </div>
+      </form>
+
+    </div>
+    
+    <footer>
+      <div class="left">Copyright</div>
+      <div class="right">...</div>
+    </footer>
+  </div>
+  <script src="book.js"></script>
+</body>
+
 </html>

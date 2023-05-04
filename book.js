@@ -18,9 +18,11 @@ class Books {
   }
 
   displayBooks() {
+    const books = JSON.parse(localStorage.getItem('books')) || [];
     const bookList = document.getElementById('book-list');
+    console.log('list section will be shown');
     bookList.innerHTML = '';
-    this.books.forEach((book) => {
+    books.forEach((book) => {
       const bookItem = document.createElement('div');
       bookItem.classList.add('book');
       bookItem.innerHTML = `${book.title} by ${book.author}<button class="remove-title" data-id="${book.id}">Remove</button>`;
@@ -33,6 +35,36 @@ class Books {
         this.displayBooks();
       });
     });
+  }
+
+  static showAddBookSection() {
+    console.log('AddBook section will be shown');
+    const bookList = document.getElementById('book-list');
+    bookList.innerHTML = ` 
+    <div id="contact_section">
+
+    <div class="contact_title">
+      <h2>Contact Information</h2>
+    </div>
+
+    <div class="contact_detail">
+      <div class="contact_description">
+        <p>Do have any questions or you just want say "Hello"? You can reach out to us</p>
+      </div>
+
+      <ul class="address">
+        <li>Our e-mail: mail@mail.com</li>
+        <li>Our Phone: number +8801952773973</li>
+        <li>Our address: Streetname 22,84503 City, Country</li>
+      </ul>
+    </div>
+
+  </div>
+    `;
+  }
+
+  static showContactSection() {
+    console.log('Contact section will be shown');
   }
 }
 
@@ -57,3 +89,7 @@ bookList.addEventListener('click', (event) => {
     books.displayBooks();
   }
 });
+
+document.querySelector('#list').addEventListener('click', books.displayBooks);
+document.querySelector('#add_new').addEventListener('click', Books.showAddBookSection);
+document.querySelector('#contact').addEventListener('click', Books.showContactSection);
